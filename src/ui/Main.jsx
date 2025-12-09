@@ -43,14 +43,13 @@ Your tasks:
 5. Keep everything clear, structured, and concise.
 `;
 
-function Main() {
-  const cv = localStorage.getItem("cv");
-  const [jobDescrition, setJobDescription] = useState("");
+function Main({ cv }) {
+  const [jobDescription, setJobDescription] = useState("");
   const [finalPrompt, setFinalPrompt] = useState("");
   const [language, setLanguage] = useState("en");
 
   function handleGeneratePrompt() {
-    if (!cv || !jobDescrition) {
+    if (!cv.trim() || !jobDescription.trim()) {
       alert("Please add both your CV and the job description");
       return;
     }
@@ -59,12 +58,12 @@ function Main() {
 
     const result = TEMPLATE.replace("{{LANG_INSTRUCTION}}", langInstruction)
       .replace("{{CV}}", cv)
-      .replace("{{JOB}}", jobDescrition);
+      .replace("{{JOB}}", jobDescription);
 
     setFinalPrompt(result);
   }
 
-  const isDisabled = !cv || !jobDescrition;
+  const isDisabled = !cv || !jobDescription;
 
   return (
     <main className="flex-1 bg-slate-950 text-slate-50">

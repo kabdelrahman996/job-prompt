@@ -1,9 +1,8 @@
 import { useState } from "react";
 import Modal from "./Modal";
 
-function Header() {
+function Header({ cv, setCv }) {
   const [showUpdateInput, setShowUpdateInput] = useState(false);
-  const [cv, setCv] = useState(() => localStorage.getItem("cv") || "");
 
   function handleSave() {
     localStorage.setItem("cv", cv);

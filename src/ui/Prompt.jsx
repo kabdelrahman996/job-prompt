@@ -1,13 +1,18 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function Prompt({ finalPrompt, close }) {
   const [copied, setCopied] = useState(false);
 
-  function handleCopy() {
+  async function handleCopy() {
     if (!finalPrompt) return;
 
-    navigator.clipboard.writeText(finalPrompt);
-    setCopied(true);
+    try {
+      await navigator.clipboard.writeText(finalPrompt);
+      setCopied(true);
+    } catch {
+      toast.error("Clipboard copy failed, please copy manually");
+    }
 
     setTimeout(() => {
       setCopied(false);
